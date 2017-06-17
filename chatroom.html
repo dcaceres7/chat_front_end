@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Live Chat</title>
+<meta charset="UTF-8">
+
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="css/reset.css">
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="css/style-chat.css">
+
+</head>
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft", "Roboto", sans-serif;}
+.w3-bar-block .w3-bar-item{padding:16px}
+</style>
+<body ng-app="myApp" ng-controller="appCtrl as vm">
+
+<!-- Side Navigation -->
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card-2" style="z-index:3;width:320px;" id="mySidebar">
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom w3-large"><img src="http://cdn.livechatinc.com/website/media/img/resources/logos/livechat_384x212.png" style="width:60%;"></a>
+  <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu"
+  class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
+
+  <!-- Contacts -->
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="document.getElementById('id01').style.display='block'">Add Contact<i class="w3-padding fa fa-plus"></i></a>
+  <a id="myBtn" onclick="myFunc('Demo1')" href="javascript:void(0)" class="w3-bar-item w3-button"><i class="fa fa-users w3-margin-right"></i>Contacts<i class="fa fa-caret-down w3-margin-left"></i></a>
+  <div id="Demo1" class="w3-hide w3-animate-left">
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" onclick="openMail('Borge');w3_close();" id="firstTab">
+      <div class="w3-container">
+        <img class="w3-round w3-margin-right" src="/w3images/avatar3.png" style="width:15%;"><span class="w3-opacity w3-large">Borge Refsnes</span>
+      </div>
+    </a>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" onclick="openMail('John');w3_close();">
+      <div class="w3-container">
+        <img class="w3-round w3-margin-right" src="/w3images/avatar2.png" style="width:15%;"><span class="w3-opacity w3-large">John Doe</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Chat Rooms -->
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="document.getElementById('id02').style.display='block'">Create Chat Room<i class="w3-padding fa fa-plus"></i></a>
+  <a id="myBtn" onclick="myFunc('Demo2')" href="javascript:void(0)" class="w3-bar-item w3-button"><i class="fa fa-wechat w3-margin-right"></i>Chat Rooms<i class="fa fa-caret-down w3-margin-left"></i></a>
+  <div id="Demo2" class="w3-hide w3-animate-left">
+     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" onclick="openMail('Jane');w3_close();">
+      <div class="w3-container">
+        <img class="w3-round w3-margin-right" src="/w3images/avatar5.png" style="width:15%;"><span class="w3-opacity w3-large">Jane Doe</span>
+      </div>
+    </a>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" onclick="openMail('John');w3_close();">
+      <div class="w3-container">
+        <img class="w3-round w3-margin-right" src="/w3images/avatar2.png" style="width:15%;"><span class="w3-opacity w3-large">John Doe</span>
+      </div>
+    </a>
+  </div>
+
+  <!--Private Chat -->
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="document.getElementById('id03').style.display='block'">New Private Chat<i class="w3-padding fa fa-plus"></i></a>
+  <a id="myBtn" onclick="myFunc('Demo3')" href="javascript:void(0)" class="w3-bar-item w3-button"><i class="fa fa-wechat w3-margin-right"></i>Private Chat<i class="fa fa-caret-down w3-margin-left"></i></a>
+  <div id="Demo3" class="w3-hide w3-animate-left">
+     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" onclick="openMail('Jane');w3_close();">
+      <div class="w3-container">
+        <img class="w3-round w3-margin-right" src="/w3images/avatar3.png" style="width:15%;"><span class="w3-opacity w3-large">Borge Refsnes</span>
+      </div>
+    </a>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" onclick="openMail('John');w3_close();">
+      <div class="w3-container">
+        <img class="w3-round w3-margin-right" src="/w3images/avatar2.png" style="width:15%;"><span class="w3-opacity w3-large">John Doe</span>
+</nav>
+
+
+
+<!-- Modal that pops up when you click on "Add Contact" -->
+<div id="id01" class="w3-modal" style="z-index:4">
+  <div class="w3-modal-content w3-animate-zoom">
+    <div class="w3-container w3-padding w3-orange">
+       <span onclick="document.getElementById('id01').style.display='none'"
+       class="w3-button w3-orange w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
+      <h2>Add Contact</h2>
+    </div>
+    <div class="w3-panel">
+      <label>Username</label>
+      <input class="w3-input w3-border w3-margin-bottom" type="text">
+      <label>Email</label>
+      <input class="w3-input w3-border w3-margin-bottom" type="text">
+      <label>Name</label>
+      <input class="w3-input w3-border w3-margin-bottom" type="text">
+      <div class="w3-section">
+        <a class="w3-button w3-orange" onclick="document.getElementById('id01').style.display='none'">Cancel  <i class="fa fa-remove"></i></a>
+        <a class="w3-button w3-light-grey w3-right" onclick="document.getElementById('id01').style.display='none'">Add  <i class="fa fa-plus"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal that pops up when you click on "Create Chat Room" -->
+<div id="id02" class="w3-modal" style="z-index:4">
+  <div class="w3-modal-content w3-animate-zoom">
+    <div class="w3-container w3-padding w3-orange">
+       <span onclick="document.getElementById('id02').style.display='none'"
+       class="w3-button w3-orange w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
+      <h2>Create Chat Room</h2>
+    </div>
+    <div class="w3-panel">
+      <label>Chat Room Name</label>
+      <input class="w3-input w3-border w3-margin-bottom" type="text">
+      <div class="w3-section">
+        <a class="w3-button w3-orange" onclick="document.getElementById('id02').style.display='none'">Cancel  <i class="fa fa-remove"></i></a>
+        <a class="w3-button w3-light-grey w3-right" onclick="document.getElementById('id02').style.display='none'">Create<i class="fa fa-plus"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal that pops up when you click on "Private Chat" -->
+<div id="id03" class="w3-modal" style="z-index:4">
+  <div class="w3-modal-content w3-animate-zoom">
+    <div class="w3-container w3-padding w3-orange">
+       <span onclick="document.getElementById('id03').style.display='none'"
+       class="w3-button w3-orange w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
+      <h2>New Private Chat</h2>
+    </div>
+    <div class="w3-panel">
+      <label>Username</label>
+      <input class="w3-input w3-border w3-margin-bottom" type="text">
+      <div class="w3-section">
+        <a class="w3-button w3-orange" onclick="document.getElementById('id03').style.display='none'">Cancel  <i class="fa fa-remove"></i></a>
+        <a class="w3-button w3-light-grey w3-right" onclick="document.getElementById('id03').style.display='none'">Create<i class="fa fa-plus"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Effect when opening nav screen -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="Close Sidemenu" id="myOverlay"></div>
+
+<!-- Page content -->
+<div class="w3-main" style="margin-left:320px;">
+<i class="fa fa-bars w3-button w3-white w3-hide-large w3-xlarge w3-margin-left w3-margin-top" onclick="w3_open()"></i>
+<a href="javascript:void(0)" class="w3-hide-large w3-orange w3-button w3-right w3-margin-top w3-margin-right" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-plus"></i></a>
+
+<div id="Borge" class="w3-container person">
+  <br>
+  <img class="w3-round  w3-animate-top" src="/w3images/avatar3.png" style="width:20%;">
+  <h5 class="w3-opacity">Status</h5>
+  <h4><i class="fa fa-user"></i> USER.NAME</h4>
+  <hr>
+</div>
+
+  <div class="chat">
+    
+    <div class="chat-history">
+      <ul>
+        <li class="clearfix" ng-repeat="item in messages">
+          <div class="message-data align-right">
+            <span class="message-data-time" >{{item.time}}</span> &nbsp; &nbsp;
+            <span class="message-data-name" >{{item.name}}</span> <i class="fa fa-circle me"></i>
+            
+          </div>
+          <div class="message other-message float-right">
+            {{item.mes}}
+          </div>
+        </li>
+        
+        <li>
+          <div class="message-data">
+            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+            <span class="message-data-time">10:12 AM, Today</span>
+          </div>
+          <div class="message my-message">
+            Are we meeting today? Project has been already finished and I have results to show you.
+          </div>
+        </li>
+        
+      </ul>
+      
+    </div> <!-- end chat-history -->
+    
+    <div class="chat-message clearfix">
+      <textarea ng-model="vm.set_messages" name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
+              
+      <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+      <i class="fa fa-file-image-o"></i>
+      
+      <button ng-click="vm.submitMessage()">Send</button>
+
+    </div> <!-- end chat-message -->
+    
+  </div> <!-- end chat -->
+  
+
+<div id="Jane" class="w3-container person">
+  <br>
+  <img class="w3-round w3-animate-top" src="/w3images/avatar5.png" style="width:20%;">
+  <h4><i class="fa fa-users"></i>ChatRoom Name</h4>
+  <a class="w3-button w3-dark-grey">Add User<i class="w3-margin-left fa fa-plus-circle"></i></a>
+  <a class="w3-button w3-dark-grey">Kick User<i class="w3-margin-left fa fa-minus-circle"></i></a>
+  <hr>
+  <p>Chat contact</p>
+</div>
+
+</div>
+
+<script id="message-template" type="text/x-handlebars-template">
+  <li class="clearfix">
+    <div class="message-data align-right">
+      <span class="message-data-time">{{time}}, Today</span> &nbsp; &nbsp;
+      <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
+    </div>
+    <div class="message other-message float-right">
+      {{messageOutput}}
+    </div>
+  </li>
+</script>
+
+<script id="message-response-template" type="text/x-handlebars-template">
+  <li>
+    <div class="message-data">
+      <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+      <span class="message-data-time">{{time}}, Today</span>
+    </div>
+    <div class="message my-message">
+      {{response}}
+    </div>
+  </li>
+</script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js'></script>
+
+<script src="js/chat_index.js"></script>
+<script src="angular.min.js"></script>
+<script src="js/app.js"></script>
+
+<script src="js/chatroom.js"></script>
+<script>
+var openTab = document.getElementById("firstTab");
+openTab.click();
+</script>
+</body>
+</html>
